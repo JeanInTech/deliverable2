@@ -12,9 +12,9 @@ namespace Deliverable2
         static void Main(string[] args)
         {
             //Declare Variables
-            string headsOrTailsGuess; //hold user's string head or tail input 
-            int numberOfFlips; // hold user's number input for how many times to flip coin
-            int correctCount; //hold number of total guesses 
+            string headsOrTailsGuess;
+            int numberOfFlips;
+            int correctCount = 0;
             Random coinFlip = new Random();
             string heads = "heads";
             string tails = "tails";
@@ -25,29 +25,50 @@ namespace Deliverable2
             Console.Write("Guess which will have more: heads or tails? ");
             headsOrTailsGuess = Console.ReadLine();
 
-            //start a loop depending on user choice of heads or tails 
+            Console.Write("How many times shall we flip a coin? ");
+            numberOfFlips = int.Parse(Console.ReadLine());
+            Console.WriteLine(); //Blank line to emulate project example
 
-                Console.Write("How many times shall we flip a coin? ");
-                numberOfFlips = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < numberOfFlips; i++)
+            //Conditions based on user input
+            if (headsOrTailsGuess.Contains(heads))
             {
-                flip = coinFlip.Next(2);
-                if (flip == 0)
+                for (int i = 0; i < numberOfFlips; i++)
                 {
-                    Console.WriteLine(heads);
-
-
-                }
-                else
-                {
-                    Console.WriteLine(tails);
+                    flip = coinFlip.Next(2);
+                    if (flip == 0)
+                    {
+                        Console.WriteLine(heads);
+                        correctCount++;
+                    }
+                    else
+                    {
+                        Console.WriteLine(tails);
+                    }
                 }
             }
-            correctCount = int.Parse(heads);
+            else if (headsOrTailsGuess.Contains(tails))
+            {
+                for (int i = 0; i < numberOfFlips; i++)
+                {
+                    flip = coinFlip.Next(2);
+                    if (flip == 0)
+                    {
+                        Console.WriteLine(heads);
+                    }
+                    else
+                    {
+                        Console.WriteLine(tails);
+                        correctCount++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+            }
+
             Console.WriteLine("\nYour guess, " + headsOrTailsGuess + ", came up " + correctCount + " time(s).");
-            int percentage = (correctCount / numberOfFlips) * 100;
-            Console.WriteLine("That's " + percentage);
-        }
+            Console.WriteLine("That's " + Convert.ToDouble(correctCount) / Convert.ToDouble(numberOfFlips) * 100 + "%.");
+            }
     }
 }
